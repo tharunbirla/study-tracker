@@ -13,9 +13,9 @@ Binaries:
   https://github.com/FunMax-Edward/study-tracker/releases/download/%v/app-release.apk
 
 Builds:
-  - versionName: 1.0.2
-    versionCode: 3
-    commit: 61d3289abd10d0970dab6ae7fd84b3721d75ca5f
+  - versionName: 1.0.4
+    versionCode: 4
+    commit: d0cad0e55c963b29734665370aa1e9fd75780b14
     subdir: app
     gradle:
       - yes
@@ -24,5 +24,5 @@ AllowedAPKSigningKeys: eb8f525f275d96a249c451aa46c802d104995224eeeed31ae30a3ba1b
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: 1.0.2
-CurrentVersionCode: 3
+CurrentVersion: 1.0.4
+CurrentVersionCode: 4
