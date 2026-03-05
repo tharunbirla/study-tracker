@@ -1,3 +1,5 @@
+Note: This app is currently only available in Chinese.
+
 Study Tracker is a lightweight Android application designed to help you quantify your learning efforts. Organize your studies into hierarchical projects (e.g., courses, units), log your study time, and view your progress through intuitive statistics.
 
 Key Features:

@@ -46,8 +46,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.edward.studytracker.R
 import com.edward.studytracker.data.Problem
 import com.edward.studytracker.ui.theme.getProblemColor
 
@@ -75,7 +77,7 @@ fun UnitDetailScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.cd_back),
                             tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
@@ -226,14 +228,14 @@ private fun ProblemActionDialog(
         containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
-                text = "第 $problemNumber 题",
+                text = stringResource(R.string.unitdetail_problem_title, problemNumber),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Medium
             )
         },
         text = {
             Text(
-                text = "这次的结果是：",
+                text = stringResource(R.string.unitdetail_result_prompt),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -246,13 +248,13 @@ private fun ProblemActionDialog(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Text("正确")
+                Text(stringResource(R.string.unitdetail_correct))
             }
         },
         dismissButton = {
             TextButton(onClick = onRecordWrong) {
                 Text(
-                    "错误",
+                    stringResource(R.string.unitdetail_wrong),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

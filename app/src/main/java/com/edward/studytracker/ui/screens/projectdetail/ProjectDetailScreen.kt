@@ -44,8 +44,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.edward.studytracker.R
 import com.edward.studytracker.data.Problem
 import com.edward.studytracker.data.StudyUnit
 import com.edward.studytracker.ui.theme.StatusColors
@@ -73,7 +75,7 @@ fun ProjectDetailScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.cd_back)
                         )
                     }
                 }
@@ -81,7 +83,7 @@ fun ProjectDetailScreen(
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { showCreateDialog = true }) {
-                Icon(Icons.Default.Add, contentDescription = "Add Unit")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.projectdetail_add_unit))
             }
         }
     ) { paddingValues ->
@@ -92,7 +94,7 @@ fun ProjectDetailScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "Units",
+                text = stringResource(R.string.projectdetail_units),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 16.dp)
@@ -112,13 +114,13 @@ fun ProjectDetailScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "No units yet",
+                            text = stringResource(R.string.projectdetail_no_units),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Tap + to add a unit",
+                            text = stringResource(R.string.projectdetail_tap_add),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -194,7 +196,7 @@ private fun UnitCard(
             ) {
                 Icon(
                     Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(R.string.action_delete),
                     tint = MaterialTheme.colorScheme.error,
                     modifier = Modifier.size(20.dp)
                 )
@@ -210,7 +212,7 @@ private fun UnitCard(
             
             // Problem count at bottom
             Text(
-                text = "${unit.problemCount} problems",
+                text = stringResource(R.string.projectdetail_problem_count, unit.problemCount),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.BottomCenter)
@@ -229,13 +231,13 @@ private fun CreateUnitDialog(
     
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Add Unit") },
+        title = { Text(stringResource(R.string.projectdetail_add_unit_dialog)) },
         text = {
             Column {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Unit Name (e.g., U1)") },
+                    label = { Text(stringResource(R.string.projectdetail_unit_name_example)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -243,7 +245,7 @@ private fun CreateUnitDialog(
                 OutlinedTextField(
                     value = count,
                     onValueChange = { count = it.filter { c -> c.isDigit() } },
-                    label = { Text("Problem Count") },
+                    label = { Text(stringResource(R.string.projectdetail_problem_count_label)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -254,12 +256,12 @@ private fun CreateUnitDialog(
                 onClick = { onConfirm(name, count.toIntOrNull() ?: 20) },
                 enabled = name.isNotBlank()
             ) {
-                Text("Add")
+                Text(stringResource(R.string.action_add))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.projectdetail_cancel))
             }
         }
     )
@@ -273,16 +275,16 @@ private fun DeleteConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Delete Unit") },
-        text = { Text("Delete \"$unitName\" and all its problems?") },
+        title = { Text(stringResource(R.string.projectdetail_delete_unit_title)) },
+        text = { Text(stringResource(R.string.projectdetail_delete_unit_message, unitName)) },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("Delete", color = MaterialTheme.colorScheme.error)
+                Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.projectdetail_cancel))
             }
         }
     )

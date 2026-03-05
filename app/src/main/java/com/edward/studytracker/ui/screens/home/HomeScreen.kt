@@ -64,11 +64,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.edward.studytracker.R
 import com.edward.studytracker.data.Project
 import com.edward.studytracker.data.StudyUnit
 
@@ -240,7 +242,7 @@ private fun BottomNavBar(
                 // 统计按钮
                 NavButton(
                     icon = Icons.Default.Create,
-                    label = "统计",
+                    label = stringResource(R.string.nav_stats),
                     onClick = onNavigateToStats
                 )
                 
@@ -257,7 +259,7 @@ private fun BottomNavBar(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "添加单元",
+                            contentDescription = stringResource(R.string.cd_add_unit),
                             tint = MaterialTheme.colorScheme.onPrimary,
                             modifier = Modifier.size(24.dp)
                         )
@@ -267,7 +269,7 @@ private fun BottomNavBar(
                 // 设置按钮
                 NavButton(
                     icon = Icons.Default.Settings,
-                    label = "设置",
+                    label = stringResource(R.string.nav_settings),
                     onClick = onNavigateToSettings
                 )
             }
@@ -324,7 +326,7 @@ private fun ProjectTitle(
         )
         Icon(
             imageVector = Icons.Default.KeyboardArrowDown,
-            contentDescription = "Select project",
+            contentDescription = stringResource(R.string.cd_select_project),
             tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
         )
     }
@@ -350,13 +352,13 @@ private fun EmptyUnitState(
             )
             Spacer(modifier = Modifier.height(24.dp))
             Text(
-                text = "还没有单元",
+                text = stringResource(R.string.empty_no_units),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "点击下方按钮添加",
+                text = stringResource(R.string.empty_add_unit_hint),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
                 textAlign = TextAlign.Center
@@ -400,7 +402,7 @@ private fun UnitGridCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "${unit.problemCount} 题",
+                    text = stringResource(R.string.home_unit_count, unit.problemCount),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -413,7 +415,7 @@ private fun UnitGridCard(
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(R.string.action_delete),
                     modifier = Modifier.size(18.dp),
                     tint = MaterialTheme.colorScheme.error.copy(alpha = 0.5f)
                 )
@@ -441,7 +443,7 @@ private fun ProjectSelectorDialog(
         containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
-                text = "选择项目",
+                text = stringResource(R.string.dialog_choose_project_title),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Medium
             )
@@ -486,7 +488,7 @@ private fun ProjectSelectorDialog(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
-                                        contentDescription = "编辑",
+                                        contentDescription = stringResource(R.string.cd_edit),
                                         modifier = Modifier.size(18.dp),
                                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -497,7 +499,7 @@ private fun ProjectSelectorDialog(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
-                                        contentDescription = "删",
+                                        contentDescription = stringResource(R.string.cd_delete_project),
                                         modifier = Modifier.size(18.dp),
                                         tint = MaterialTheme.colorScheme.error.copy(alpha = 0.6f)
                                     )
@@ -513,14 +515,14 @@ private fun ProjectSelectorDialog(
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("新建项目")
+                    Text(stringResource(R.string.home_new_project))
                 }
             }
         },
         confirmButton = {},
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("关闭")
+                Text(stringResource(R.string.action_close))
             }
         }
     )
@@ -541,19 +543,19 @@ private fun ProjectSelectorDialog(
             onDismissRequest = { deleteProject = null },
             shape = RoundedCornerShape(28.dp),
             containerColor = MaterialTheme.colorScheme.surface,
-            title = { Text("删除项目") },
-            text = { Text("确定删除 \"${project.name}\"？") },
+            title = { Text(stringResource(R.string.dialog_delete_project_title)) },
+            text = { Text(stringResource(R.string.dialog_delete_project_message, project.name)) },
             confirmButton = {
                 TextButton(onClick = {
                     onDeleteProject(project.id)
                     deleteProject = null
                 }) {
-                    Text("删除", color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { deleteProject = null }) {
-                    Text("取消")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -574,7 +576,7 @@ private fun CreateUnitDialog(
         containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
-                text = "新建单元",
+                text = stringResource(R.string.dialog_create_unit_title),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Medium
             )
@@ -584,7 +586,7 @@ private fun CreateUnitDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("单元名称") },
+                    label = { Text(stringResource(R.string.label_unit_name)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -597,7 +599,7 @@ private fun CreateUnitDialog(
                 OutlinedTextField(
                     value = count,
                     onValueChange = { count = it.filter { c -> c.isDigit() } },
-                    label = { Text("题目数量") },
+                    label = { Text(stringResource(R.string.label_problem_count)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -617,12 +619,12 @@ private fun CreateUnitDialog(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Text("创建")
+                Text(stringResource(R.string.action_create))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )
@@ -641,7 +643,7 @@ private fun CreateProjectDialog(
         containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
-                text = "新建项目",
+                text = stringResource(R.string.dialog_create_project_title),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Medium
             )
@@ -650,7 +652,7 @@ private fun CreateProjectDialog(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("项目名称") },
+                label = { Text(stringResource(R.string.label_project_name)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
@@ -669,12 +671,12 @@ private fun CreateProjectDialog(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Text("创建")
+                Text(stringResource(R.string.action_create))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )
@@ -694,7 +696,7 @@ private fun RenameDialog(
         containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
-                text = "重命名",
+                text = stringResource(R.string.dialog_rename_title),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Medium
             )
@@ -703,7 +705,7 @@ private fun RenameDialog(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("名称") },
+                label = { Text(stringResource(R.string.label_name)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
@@ -722,12 +724,12 @@ private fun RenameDialog(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Text("确定")
+                Text(stringResource(R.string.action_confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )
@@ -743,16 +745,16 @@ private fun DeleteUnitDialog(
         onDismissRequest = onDismiss,
         shape = RoundedCornerShape(28.dp),
         containerColor = MaterialTheme.colorScheme.surface,
-        title = { Text("删除单元") },
-        text = { Text("确定删除 \"$unitName\"？") },
+        title = { Text(stringResource(R.string.dialog_delete_unit_title)) },
+        text = { Text(stringResource(R.string.dialog_delete_unit_message, unitName)) },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("删除", color = MaterialTheme.colorScheme.error)
+                Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

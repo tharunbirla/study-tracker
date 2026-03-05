@@ -47,9 +47,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.edward.studytracker.R
 import com.edward.studytracker.data.PracticeRecord
 import com.edward.studytracker.data.ProjectRepository
 import com.edward.studytracker.data.StudyUnit
@@ -87,7 +89,7 @@ fun StatsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "统计",
+                        text = stringResource(R.string.stats_title),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Medium
                     )
@@ -96,7 +98,7 @@ fun StatsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.cd_back),
                             tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
@@ -127,7 +129,7 @@ fun StatsScreen(
             
             // 学习热力图（按月展示，可切换）
             MonthlyHeatmapSection(
-                title = "学习热力图",
+                title = stringResource(R.string.stats_heatmap_title),
                 yearMonth = currentYearMonth,
                 records = allRecords,
                 onPreviousMonth = { currentYearMonth = currentYearMonth.minusMonths(1) },
@@ -173,15 +175,15 @@ private fun ProjectOverviewCard(
             ) {
                 StatItem(
                     value = "$totalUnits",
-                    label = "单元数"
+                    label = stringResource(R.string.stats_units_count)
                 )
                 StatItem(
                     value = "$totalProblems",
-                    label = "总题数"
+                    label = stringResource(R.string.stats_total_problems)
                 )
                 StatItem(
                     value = "${totalProblems / 10}",
-                    label = "已做题数"
+                    label = stringResource(R.string.stats_done_problems)
                 )
             }
         }
@@ -239,7 +241,7 @@ private fun MonthlyHeatmapSection(
                 IconButton(onClick = onPreviousMonth) {
                     Icon(
                         imageVector = Icons.Default.KeyboardArrowLeft,
-                        contentDescription = "上个月",
+                        contentDescription = stringResource(R.string.stats_previous_month),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -251,7 +253,7 @@ private fun MonthlyHeatmapSection(
                 IconButton(onClick = onNextMonth) {
                     Icon(
                         imageVector = Icons.Default.KeyboardArrowRight,
-                        contentDescription = "下个月",
+                        contentDescription = stringResource(R.string.stats_next_month),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -334,7 +336,7 @@ private fun MonthlyHeatmapSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "少",
+                text = stringResource(R.string.stats_few),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -351,7 +353,7 @@ private fun MonthlyHeatmapSection(
             }
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "多",
+                text = stringResource(R.string.stats_more),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -393,7 +395,7 @@ private fun MonthlyHeatmapCell(
                     shape = RoundedCornerShape(4.dp)
                 ) {
                     Text(
-                        text = "$count 题",
+                        text = stringResource(R.string.stats_day_count, count),
                         modifier = Modifier.padding(4.dp),
                         style = MaterialTheme.typography.labelSmall
                     )
@@ -440,12 +442,12 @@ private fun StreakCard(streakDays: Int) {
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
-                    text = "连续学习 $streakDays 天",
+                    text = stringResource(R.string.stats_streak_days, streakDays),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "继续保持！",
+                    text = stringResource(R.string.stats_keep_going),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -42,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -342,13 +343,13 @@ private fun EmptyStateContent(
             )
             Spacer(modifier = Modifier.height(24.dp))
             Text(
-                text = "还没有项目",
+                text = stringResource(R.string.empty_no_projects),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "点击下方按钮创建第一个学习项目",
+                text = stringResource(R.string.empty_create_first_project_hint),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -365,7 +366,7 @@ private fun EmptyStateContent(
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(modifier = Modifier.size(8.dp))
-                Text("创建项目")
+                Text(stringResource(R.string.action_create_project))
             }
         }
     }
@@ -383,7 +384,7 @@ private fun CreateFirstProjectDialog(
         shape = RoundedCornerShape(24.dp),
         title = {
             Text(
-                text = "创建第一个项目",
+                text = stringResource(R.string.dialog_create_first_project_title),
                 style = MaterialTheme.typography.headlineSmall
             )
         },
@@ -391,7 +392,7 @@ private fun CreateFirstProjectDialog(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("项目名称") },
+                label = { Text(stringResource(R.string.label_project_name)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp)
@@ -406,12 +407,12 @@ private fun CreateFirstProjectDialog(
                 ),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("创建")
+                Text(stringResource(R.string.action_create))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

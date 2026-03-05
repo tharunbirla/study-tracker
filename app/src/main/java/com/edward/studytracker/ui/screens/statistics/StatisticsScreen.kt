@@ -38,9 +38,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.edward.studytracker.R
 import com.edward.studytracker.data.PracticeRecord
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -65,12 +67,12 @@ fun StatisticsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("统计") },
+                title = { Text(stringResource(R.string.stats_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.cd_back)
                         )
                     }
                 }
@@ -90,16 +92,16 @@ fun StatisticsScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 StatCard(
-                    title = "总练习",
+                    title = stringResource(R.string.statistics_total_practice),
                     value = "$totalCount",
-                    unit = "次",
+                    unit = stringResource(R.string.statistics_times),
                     modifier = Modifier.weight(1f),
                     valueColor = Color(0xFF2196F3)
                 )
                 StatCard(
-                    title = "正确率",
+                    title = stringResource(R.string.statistics_correct_rate),
                     value = "$correctRate%",
-                    unit = "平均",
+                    unit = stringResource(R.string.statistics_avg),
                     modifier = Modifier.weight(1f),
                     valueColor = Color(0xFF4CAF50)
                 )
@@ -226,7 +228,7 @@ private fun CalendarView(
                 IconButton(onClick = onPreviousMonth) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Previous Month"
+                        contentDescription = stringResource(R.string.statistics_previous_month)
                     )
                 }
                 Text(
@@ -237,7 +239,7 @@ private fun CalendarView(
                 IconButton(onClick = onNextMonth) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = "Next Month"
+                        contentDescription = stringResource(R.string.statistics_next_month)
                     )
                 }
             }
@@ -297,7 +299,7 @@ private fun CalendarView(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "少",
+                    text = stringResource(R.string.stats_few),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -322,7 +324,7 @@ private fun CalendarView(
                 
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "多",
+                    text = stringResource(R.string.stats_more),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

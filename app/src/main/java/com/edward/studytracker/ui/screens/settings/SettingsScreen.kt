@@ -46,9 +46,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.edward.studytracker.R
 import com.edward.studytracker.data.PreferencesManager
 import com.edward.studytracker.data.ProjectRepository
 import kotlinx.coroutines.launch
@@ -82,12 +84,18 @@ fun SettingsScreen(
             result.onSuccess { json ->
                 val writeResult = writeTextToUri(context, uri, json)
                 statusMessage = if (writeResult.isSuccess) {
-                    "导出成功"
+                    context.getString(R.string.status_export_success)
                 } else {
-                    "导出失败：${writeResult.exceptionOrNull()?.message ?: "无法写入文件"}"
+                    context.getString(
+                        R.string.status_export_failed,
+                        writeResult.exceptionOrNull()?.message ?: context.getString(R.string.error_cannot_write_file)
+                    )
                 }
             }.onFailure { error ->
-                statusMessage = "导出失败：${error.message ?: "未知错误"}"
+                statusMessage = context.getString(
+                    R.string.status_export_failed,
+                    error.message ?: context.getString(R.string.error_unknown)
+                )
             }
             isProcessing = false
             showStatusDialog = true
@@ -107,7 +115,7 @@ fun SettingsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "设置",
+                        text = stringResource(R.string.settings_title),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Medium
                     )
@@ -116,7 +124,7 @@ fun SettingsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.cd_back),
                             tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
@@ -136,11 +144,11 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            SettingsSection(title = "外观") {
+            SettingsSection(title = stringResource(R.string.section_appearance)) {
                 SettingsItem(
                     icon = Icons.Default.Settings,
-                    title = "深色模式",
-                    subtitle = "跟随系统",
+                    title = stringResource(R.string.settings_dark_mode),
+                    subtitle = stringResource(R.string.settings_follow_system),
                     onClick = { darkModeEnabled = !darkModeEnabled },
                     trailing = {
                         Switch(
@@ -153,11 +161,11 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            SettingsSection(title = "通知") {
+            SettingsSection(title = stringResource(R.string.section_notifications)) {
                 SettingsItem(
                     icon = Icons.Default.Notifications,
-                    title = "学习提醒",
-                    subtitle = "每日学习提醒",
+                    title = stringResource(R.string.settings_study_reminder),
+                    subtitle = stringResource(R.string.settings_daily_reminder),
                     onClick = { notificationsEnabled = !notificationsEnabled },
                     trailing = {
                         Switch(
@@ -174,8 +182,8 @@ fun SettingsScreen(
 
                 SettingsItem(
                     icon = Icons.Default.Notifications,
-                    title = "提示音",
-                    subtitle = "答题时播放声音",
+                    title = stringResource(R.string.settings_sound),
+                    subtitle = stringResource(R.string.settings_sound_subtitle),
                     onClick = { soundEnabled = !soundEnabled },
                     trailing = {
                         Switch(
@@ -188,11 +196,11 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            SettingsSection(title = "数据") {
+            SettingsSection(title = stringResource(R.string.section_data)) {
                 SettingsItem(
                     icon = Icons.Default.Create,
-                    title = "导出数据",
-                    subtitle = "保存为 JSON 文件",
+                    title = stringResource(R.string.settings_export_data),
+                    subtitle = stringResource(R.string.settings_export_subtitle),
                     onClick = {
                         if (!isProcessing) {
                             exportLauncher.launch(buildExportFileName())
@@ -207,8 +215,8 @@ fun SettingsScreen(
 
                 SettingsItem(
                     icon = Icons.Default.Add,
-                    title = "导入数据",
-                    subtitle = "覆盖本地数据",
+                    title = stringResource(R.string.settings_import_data),
+                    subtitle = stringResource(R.string.settings_import_subtitle),
                     onClick = {
                         if (!isProcessing) {
                             importLauncher.launch(arrayOf("application/json"))
@@ -218,7 +226,7 @@ fun SettingsScreen(
 
                 if (isProcessing) {
                     Text(
-                        text = "处理中...",
+                        text = stringResource(R.string.settings_processing),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
@@ -230,11 +238,11 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            SettingsSection(title = "关于") {
+            SettingsSection(title = stringResource(R.string.section_about)) {
                 SettingsItem(
                     icon = Icons.Default.Info,
-                    title = "版本",
-                    subtitle = "Study Tracker 1.0.0",
+                    title = stringResource(R.string.settings_version),
+                    subtitle = stringResource(R.string.settings_version_value),
                     onClick = { }
                 )
             }
@@ -242,7 +250,7 @@ fun SettingsScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "重置统计",
+                text = stringResource(R.string.settings_reset_statistics),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -260,8 +268,8 @@ fun SettingsScreen(
                 showImportConfirm = false
                 pendingImportUri = null
             },
-            title = { Text("导入数据") },
-            text = { Text("导入将覆盖本地数据，是否继续？") },
+            title = { Text(stringResource(R.string.dialog_import_title)) },
+            text = { Text(stringResource(R.string.dialog_import_message)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -273,18 +281,24 @@ fun SettingsScreen(
                                 isProcessing = true
                                 val readResult = readTextFromUri(context, uri)
                                 if (readResult.isFailure) {
-                                    statusMessage = "导入失败：${readResult.exceptionOrNull()?.message ?: "无法读取文件"}"
+                                    statusMessage = context.getString(
+                                        R.string.status_import_failed,
+                                        readResult.exceptionOrNull()?.message ?: context.getString(R.string.error_cannot_read_file)
+                                    )
                                 } else {
                                     val json = readResult.getOrNull().orEmpty()
                                     if (json.isBlank()) {
-                                        statusMessage = "导入失败：文件为空"
+                                        statusMessage = context.getString(R.string.status_import_file_empty)
                                     } else {
                                         val importResult = repository.importData(json)
                                         if (importResult.isSuccess) {
                                             updateCurrentProjectAfterImport(context, repository)
-                                            statusMessage = "导入成功"
+                                            statusMessage = context.getString(R.string.status_import_success)
                                         } else {
-                                            statusMessage = "导入失败：${importResult.exceptionOrNull()?.message ?: "未知错误"}"
+                                            statusMessage = context.getString(
+                                                R.string.status_import_failed,
+                                                importResult.exceptionOrNull()?.message ?: context.getString(R.string.error_unknown)
+                                            )
                                         }
                                     }
                                 }
@@ -294,7 +308,7 @@ fun SettingsScreen(
                         }
                     }
                 ) {
-                    Text("继续")
+                    Text(stringResource(R.string.action_continue))
                 }
             },
             dismissButton = {
@@ -304,7 +318,7 @@ fun SettingsScreen(
                         pendingImportUri = null
                     }
                 ) {
-                    Text("取消")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -313,11 +327,11 @@ fun SettingsScreen(
     if (showStatusDialog) {
         AlertDialog(
             onDismissRequest = { showStatusDialog = false },
-            title = { Text("提示") },
+            title = { Text(stringResource(R.string.dialog_notice_title)) },
             text = { Text(statusMessage) },
             confirmButton = {
                 TextButton(onClick = { showStatusDialog = false }) {
-                    Text("确定")
+                    Text(stringResource(R.string.action_confirm))
                 }
             }
         )
@@ -335,7 +349,7 @@ private fun writeTextToUri(context: Context, uri: Uri, content: String): Result<
         context.contentResolver.openOutputStream(uri)?.use { output ->
             output.write(content.toByteArray(Charsets.UTF_8))
             output.flush()
-        } ?: throw IOException("无法打开输出流")
+        } ?: throw IOException(context.getString(R.string.error_open_output_stream))
     }
 }
 
@@ -343,7 +357,7 @@ private fun readTextFromUri(context: Context, uri: Uri): Result<String> {
     return runCatching {
         context.contentResolver.openInputStream(uri)?.use { input ->
             input.bufferedReader(Charsets.UTF_8).readText()
-        } ?: throw IOException("无法打开输入流")
+        } ?: throw IOException(context.getString(R.string.error_open_input_stream))
     }
 }
 
