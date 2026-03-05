@@ -12,8 +12,8 @@ android {
         applicationId = "com.edward.studytracker"
         minSdk = 31
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.0.4"
+        versionCode = 5
+        versionName = "1.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +43,10 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
